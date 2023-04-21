@@ -1,22 +1,44 @@
-public abstract class Course <T> implements Comparable{
+import java.util.Arrays;
+
+public abstract class Course <T> implements Comparable <T>{
     private String crn;
     private String title;
-    private String levels;
+    private String[] levels;
 
-    public Course(String crn, String title, String levels){
+    public Course(String crn, String title, String[] levels){
         this.crn = crn;
-        this.title = title;
-        this.levels = levels;
+        if (title.length() >= 15 && title.length() <= 40){
+            this.title = title;
+        }
+
+        int counter = 0;
+        for (String level: levels){
+            if (level.equals("Graduate") || level.equals("Non-Degree") || level.equals("Undergraduate")){
+                counter ++;
+            }
+        }
+        this.levels = new String[counter];
+        counter = 0;
+        for (String level: levels){
+            if (level.equals("Graduate") || level.equals("Non-Degree") || level.equals("Undergraduate")){
+                this.levels[counter] = level;
+                counter ++;
+            }
+        }
     }
 
     public boolean equals(Object obj){
         if (obj.getClass().getName().equals(this.getClass().getName())){
-            obj = (Course)obj;
-            if (this.getCrn().equals(obj.getCrn())){
+            Course hld = (Course) obj;
+            if (this.getCrn().equals(hld.getCrn())){
                 return true;
             }
         }
         return false;
+    }
+
+    public String toString(){
+        return ("type: " + this.getType() + ", CRN: " + this.getCrn() + ", title: " + title + ", levels: " + Arrays.deepToString(this.getLevels()));
     }
 
     public abstract String getType();
@@ -25,23 +47,11 @@ public abstract class Course <T> implements Comparable{
 		return this.crn;
 	}
 
-	public void setCrn(String crn) {
-		this.crn = crn;
-	}
-
 	public String getTitle() {
 		return this.title;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
-
-	public String getLevels() {
+	public String[] getLevels() {
 		return this.levels;
-	}
-
-	public void setLevels(String levels) {
-		this.levels = levels;
 	}
 }
