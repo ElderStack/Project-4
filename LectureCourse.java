@@ -20,9 +20,21 @@ public abstract class LectureCourse extends Course{
 		return ("instructor: " + this.getInstructor() + ", credit: " + this.getCredits() + ", meetDays: " + Arrays.deepToString(this.getMeetDays()) + ", gtas: " + Arrays.deepToString(this.getGtas()) + ", " + super.toString());
 	}
 
-	//unfinished
-	public int compareTo(int argument){
-		return 0;
+	public int compareTo(Course argument){
+		String thisLevel = this.getLevels()[0];
+		String argLevel = argument.getLevels()[0];
+		if (thisLevel == "Graduate" && (argLevel == "Non-Degree" || argLevel == "Undergraduate")){
+			return -1;
+		}
+		else if (thisLevel == "Undergraduate" && argLevel == "Non-Degree"){
+			return -1;
+		}
+		else if (thisLevel.equals(argLevel)){
+			return 0;
+		}
+		else{
+			return 1;
+		}
 	}
 
     public String getInstructor() {

@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public abstract class Course <T> implements Comparable <T>{
+public abstract class Course implements Comparable<Course>{
     private String crn;
     private String title;
     private String[] levels;
