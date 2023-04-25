@@ -1,6 +1,6 @@
 import java.util.Arrays;
 
-public abstract class LectureCourse extends Course{
+public abstract class LectureCourse<G> extends Course{
     private String instructor;
     private int credits;
     private MeetDay[] meetDays;
@@ -8,18 +8,38 @@ public abstract class LectureCourse extends Course{
 
     public LectureCourse(String crn, String title, String[] levels, String instructor, int credits, MeetDay[] meetDays, String[] gtas){
         super(crn, title, levels);
-        this.instructor = instructor;
-        this.credits = credits;
-        if (meetDays.length >= 2){
-			this.meetDays = meetDays;
-		}
-		this.gtas = gtas;
+		try{
+			if (instructor == null)
+			{
+				throw new LectureCourseException("instructor");
+			}
+			for (MeetDay day: meetDays){
+				if (day == null){
+					throw new LectureCourseException("meetDays");
+				}
+			}
+			for (String gta: gtas){
+				if (gta == null){
+					throw new LectureCourseException("gtas");
+				}
+			}
+			this.instructor = instructor;
+			this.credits = credits;
+			if (meetDays.length >= 2){
+				this.meetDays = meetDays;
+			}
+			this.gtas = gtas;
     }
+	catch(LectureCourseException e){;}
+}
 
 	public String toString(){
 		return ("instructor: " + this.getInstructor() + ", credit: " + this.getCredits() + ", meetDays: " + Arrays.deepToString(this.getMeetDays()) + ", gtas: " + Arrays.deepToString(this.getGtas()) + ", " + super.toString());
 	}
 
+	public abstract int compareTo(Course argmuent);
+
+	/*
 	public int compareTo(Course argument){
 		String thisLevel = this.getLevels()[0];
 		String argLevel = argument.getLevels()[0];
@@ -35,7 +55,7 @@ public abstract class LectureCourse extends Course{
 		else{
 			return 1;
 		}
-	}
+	} */
 
     public String getInstructor() {
 		return this.instructor;

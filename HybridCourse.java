@@ -6,4 +6,20 @@ public class HybridCourse extends LectureCourse{
     public String getType(){
         return "Hybrid";
     }
+
+    public int compareTo(HybridCourse argument){
+        //wont have credits? confused abt how to implement the compareTos for sorting.
+        if (this.getTitle().equals(argument.getTitle())){
+            if (this.getCredits() == (argument.getCredits())){
+                return 0;
+            }
+            else if (this.getCredits() > (argument.getCredits())){
+                return 1;
+            }
+            else{
+                return -1;
+            }
+        }
+        return this.getTitle().compareTo(argument.getTitle());
+    }
 }

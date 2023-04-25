@@ -6,4 +6,18 @@ public class InPersonCourse extends LectureCourse{
     public String getType(){
         return "In-Person";
     }
+    
+    public int compareTo(InPersonCourse argument){
+        //wont have credits? confused abt how to implement the compareTos for sorting.
+        InPersonCourse newArgument = (InPersonCourse) argument;
+        if (this.getCredits() == newArgument.getCredits()){
+            return this.getTitle().compareTo(argument.getTitle());
+        }
+        else if (this.getCredits() > newArgument.getCredits()){
+            return 1;
+        }
+        else{
+            return -1;
+        }
+    }
 }

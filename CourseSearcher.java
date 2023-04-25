@@ -13,4 +13,8 @@ public class CourseSearcher implements Searchable{
         }
         return false;
     }
+
+    public boolean matches(Object course) {
+        return false;
+    }
 }
